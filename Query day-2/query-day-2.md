@@ -57,3 +57,16 @@ INNER JOIN courses c on c.id = ct.course_id
 INNER JOIN degrees deg on deg.id = c.degree_id
 INNER JOIN departments dep on dep.id = deg.department_id
 WHERE dep.name = "Dipartimento di Matematica"
+
+### BONUS: Selezionare per ogni studente il numero di tentativi sostenuti per ogni esame, stampando anche il voto massimo. Successivamente, filtrare i tentativi con voto minimo 18.
+
+### query:
+
+SELECT std.id AS student_id,concat(std.name," ",std.surname) AS std_fullname, e.id AS exam_id,c.name, max(es.vote) AS max_vote
+FROM students std
+INNER JOIN exam_student es on std.id = es.student_id
+INNER JOIN exams e on es.exam_id = e.id
+inner join courses c on e.course_id = c.id
+group by std.id,e.id,c.id
+having max_vote >18
+order by c.name,std.name
