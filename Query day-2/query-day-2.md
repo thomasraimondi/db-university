@@ -50,7 +50,7 @@ INNER JOIN teachers t on t.id = ct.teacher_id
 
 ### query:
 
-SELECT t.\*,dep.name AS dep_name
+SELECT distinct(t.id),concat(t.name," ",t.surname) AS teacher_fullname,dep.name AS dep_name
 FROM teachers t
 INNER JOIN course_teacher ct on ct.teacher_id = t.id
 INNER JOIN courses c on c.id = ct.course_id
