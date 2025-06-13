@@ -62,11 +62,11 @@ WHERE dep.name = "Dipartimento di Matematica"
 
 ### query:
 
-SELECT std.id AS student_id,concat(std.name," ",std.surname) AS std_fullname, e.id AS exam_id,c.name, max(es.vote) AS max_vote
+SELECT std.id,concat(std.name," ",std.surname) AS std_fullname,count(c.name) AS tentative,c.name AS course_name, max(es.vote) AS max_vote
 FROM students std
 INNER JOIN exam_student es on std.id = es.student_id
 INNER JOIN exams e on es.exam_id = e.id
 inner join courses c on e.course_id = c.id
-group by std.id,e.id,c.id
+group by std.id,c.id
 having max_vote >18
 order by c.name,std.name
